@@ -1,7 +1,8 @@
 testapp
 =======
 
-This repository includes all kind of test and util program.
+This repository includes some useful test program.
+It can be simply compiled by gcc or arm-none-linux-gnueabi-gcc command without any CFLAG or LIB.
 
 Compile
 =======
