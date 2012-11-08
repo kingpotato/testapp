@@ -1,4 +1,4 @@
 testapp
 =======
 
-All kind of test and util program
+This repos includes all kind of test and util program to develop something.
