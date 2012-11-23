@@ -17,28 +17,33 @@ int main(int argc, char* argv[])
 	char line[sizeof(argv[1])+10];
 	FILE *proc;
 
-    if(argc != 2 ){
-            printf("Usage: check_module <module name>\n");
-            return 0;
-    }
+	if(argc != 2 ){
+		printf("Usage: check_module <module name>\n");
+		return 0;
+	}
 
-    driver_module_tag = malloc(strlen((char *)argv[1])+1);
-    strcpy(driver_module_tag, argv[1]);
-    strcpy(driver_module_tag + strlen(argv[1])," ");
+	driver_module_tag = malloc(strlen((char *)argv[1])+1);
+	strcpy(driver_module_tag, argv[1]);
+	strcpy(driver_module_tag + strlen(argv[1])," ");
 
 	if((proc = fopen(module_file, "r")) == NULL) {
 		printf("[%s] Could not open %s\n", __func__, module_file);
 		return -1;
 	}
+	printf(" \n");
+	printf(" Searching ... \n");
 	while ((fgets(line, sizeof(line), proc)) != NULL) {
-		printf("[%s] line: %s\n", __func__, line);
-        if (strncmp(line, driver_module_tag, strlen(driver_module_tag)) == 0) {
-                fclose(proc);
-                printf("[%s] %s driver module founded in /proc/modules\n", __func__, driver_module_tag);
-                return 1;
-        }
+		if (strncmp(line, driver_module_tag, strlen(driver_module_tag)) == 0) {
+			fclose(proc);
+			printf(" \n");
+			printf(" Found Driver: %s \n\n", driver_module_tag);
+			printf(" ... Done\n\n");
+			return 0;
+		}
 	}
-    free(driver_module_tag);
+	printf(" ... Not found\n\n");
+	free(driver_module_tag);
 	fclose(proc);
+	
 	return 0;
 }
